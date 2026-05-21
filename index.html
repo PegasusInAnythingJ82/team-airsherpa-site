@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="ja" data-lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Team-AIRSherpa Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1f2429;
+      --ink-soft: #51606f;
+      --line: #c8d2dc;
+      --line-strong: #aab7c5;
+      --paper: #ffffff;
+      --paper-soft: #f4f7fa;
+      --paper-deep: #e9eff5;
+      --accent: #4f6f93;
+      --accent-deep: #385675;
+      --accent-soft: #dbe5ef;
+      --max: 560px;
+      --shadow: 0 10px 24px rgba(22, 31, 40, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #dfe5eb;
+      font-family: "BIZ UDGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+    }
+
+    a { color: var(--accent-deep); text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    .page {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--paper);
+      box-shadow: 0 0 0 1px rgba(25, 33, 40, 0.06), 0 18px 36px rgba(25, 33, 40, 0.08);
+      position: relative;
+      overflow: hidden;
+      padding-bottom: calc(92px + env(safe-area-inset-bottom));
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(246, 248, 250, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      padding: 12px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      min-width: 0;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: var(--ink-soft);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: "Source Sans 3", sans-serif;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      border: 1px solid var(--line-strong);
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .lang-toggle button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .lang-toggle button + button { border-left: 1px solid var(--line-strong); }
+    .lang-toggle button.active { background: var(--accent-deep); color: #fff; }
+
+    .hero {
+      position: relative;
+      color: #000;
+      background:
+        linear-gradient(180deg, rgba(244,247,250,0.96) 0%, rgba(244,247,250,0.90) 46%, rgba(244,247,250,0.78) 100%),
+        url('https://kitnet.jp/laboratories/labo0022/file/topimage_22.jpg') center/cover no-repeat;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(79,111,147,0.06) 0 1px, transparent 1px 80px);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 18px 16px 22px;
+    }
+
+    .subject-bar {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 12px 7px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(28px, 8vw, 42px);
+      line-height: 1.28;
+      font-weight: 700;
+    }
+
+    .hero-caption {
+      margin-top: 10px;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 11px;
+      color: var(--ink-soft);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-lead {
+      margin: 16px 0 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .hero-text {
+      margin: 12px 0 0;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .summary-card {
+      margin-top: 16px;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid var(--line-strong);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card-head {
+      padding: 12px 14px;
+      background: linear-gradient(180deg, #eff4f8 0%, #e7edf4 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .summary-card-head strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .summary-card-head span {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: var(--ink-soft);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: "Source Sans 3", sans-serif;
+    }
+
+    .summary-card-body {
+      padding: 14px;
+      font-size: 13px;
+    }
+
+    .summary-card-body ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .section {
+      position: relative;
+      padding: 22px 16px 0;
+    }
+
+    #about {
+      padding-bottom: 24px;
+    }
+
+    #services {
+      position: relative;
+      z-index: 1;
+      background: #ffffff;
+    }
+
+    .section-title {
+      position: relative;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 104px;
+      height: 2px;
+      background: var(--accent-deep);
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.32;
+      color: #000;
+    }
+
+    .section-title p {
+      margin: 4px 0 0;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-copy {
+      margin: 0 0 14px;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .cards,
+    .stats,
+    .partner-scroll,
+    .news-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .card,
+    .stat,
+    .member-box,
+    .partner-card,
+    .news-item {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff 0%, #f8fbfd 100%);
+      box-shadow: 0 8px 18px rgba(20, 30, 40, 0.04);
+    }
+
+    .card {
+      padding: 16px;
+    }
+
+    .card-num,
+    .role-badge {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 4px 8px;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .card h3,
+    .member-name,
+    .partner-card h3,
+    .news-item h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      line-height: 1.55;
+      color: #000;
+    }
+
+    .card p,
+    .card li,
+    .member-box p,
+    .partner-card p,
+    .news-item p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    /* === Keyword Architecture (Deep Isometric / VTOL Edition) === */
+    .keyword-box {
+      position: relative;
+      margin-top: 16px;
+      padding: 0;
+      border: 1px solid #d6dde4;
+      background: linear-gradient(180deg, #ffffff 0%, #eef3f8 100%);
+      overflow: hidden;
+      box-shadow: 0 18px 38px rgba(26, 37, 49, 0.12);
+    }
+
+    .keyword-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(40, 60, 82, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(40, 60, 82, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0) 100%);
+    }
+
+    .keyword-box::after {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -70px;
+      width: 240px;
+      height: 240px;
+      background: linear-gradient(135deg, rgba(204, 218, 232, 0.6) 0%, rgba(255,255,255,0) 70%);
+      transform: rotate(22deg);
+      pointer-events: none;
+    }
+
+    .keyword-box-title {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #dfe5ec;
+      background: rgba(255, 255, 255, 0.9);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .keyword-box-title::after {
+      content: "ARCHITECTURE / VTOL LAYER";
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #8a99a8;
+    }
+
+    .keyword-box-body {
+      position: relative;
+      z-index: 2;
+      padding: 26px 16px 28px;
+      perspective: 1200px;
+      overflow: hidden;
+      contain: layout paint;
+      isolation: isolate;
+    }
+
+    /* Isometric stage (deeper 3D) */
+    .keyword-iso {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: 460px;
+      margin: 0 auto 14px;
+      overflow: hidden;
+      contain: layout paint;
+    }
+
+    .keyword-iso-stage {
+      position: absolute;
+      inset: 0;
+      transform: rotateX(60deg) rotateZ(-42deg);
+      transform-style: preserve-3d;
+      transform-origin: 50% 60%;
+    }
+
+    /* Volumetric layer (top plate + side walls) */
+    .keyword-layer {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 240px;
+      height: 168px;
+      margin-left: -120px;
+      margin-top: -84px;
+      transform-style: preserve-3d;
+    }
+
+    .keyword-layer .plate {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(45, 65, 88, 0.55);
+      background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(214,228,242,0.62) 100%);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.7) inset,
+        0 18px 26px rgba(26, 37, 49, 0.10);
+    }
+
+    .keyword-layer .wall-front {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 240px;
+      height: 26px;
+      transform-origin: 0% 0%;
+      transform: rotateX(-90deg) translateY(0px);
+      background: linear-gradient(180deg, rgba(120,140,162,0.75), rgba(78,96,118,0.85));
+      border: 1px solid rgba(45, 65, 88, 0.65);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+
+    .keyword-layer .wall-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 26px;
+      height: 168px;
+      transform-origin: 0% 0%;
+      transform: rotateY(90deg) translateX(0px);
+      background: linear-gradient(90deg, rgba(140,160,182,0.7), rgba(90,108,130,0.85));
+      border: 1px solid rgba(45, 65, 88, 0.65);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+
+    .keyword-layer .layer-tag {
+      position: absolute;
+      left: -2px;
+      top: -18px;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: #2e4358;
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    /* Deeper Z stacking (5 layers, 36px apart) */
+    .keyword-layer-1 { transform: translateZ(0px); }
+    .keyword-layer-2 { transform: translateZ(40px); }
+    .keyword-layer-3 { transform: translateZ(80px); }
+    .keyword-layer-4 { transform: translateZ(120px); }
+    .keyword-layer-5 { transform: translateZ(160px); }
+
+    .keyword-layer-1 .plate { background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(232,239,246,0.78)); }
+    .keyword-layer-2 .plate { background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(220,232,244,0.75)); }
+    .keyword-layer-3 .plate { background: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(204,222,238,0.72)); }
+    .keyword-layer-4 .plate { background: linear-gradient(135deg, rgba(255,255,255,0.86), rgba(188,212,232,0.7)); }
+    .keyword-layer-5 .plate { background: linear-gradient(135deg, rgba(255,255,255,0.9),  rgba(170,198,224,0.68)); }
+
+    /* Vertical pillars connecting layers */
+    .keyword-pillar {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      transform-style: preserve-3d;
+    }
+    .keyword-pillar .pf {
+      position: absolute;
+      width: 6px;
+      height: 160px;
+      border: 1px solid rgba(45, 65, 88, 0.55);
+      transform-origin: 0 0;
+    }
+    .keyword-pillar .pf.f { transform: rotateX(-90deg);                    background: linear-gradient(180deg, #b7c3d0, #6f7e8f); }
+    .keyword-pillar .pf.s { transform: rotateY(90deg) rotateX(-90deg);     background: linear-gradient(180deg, #92a0b0, #4f5d6e); }
+
+    /* Cubes (raised) */
+    .keyword-cube {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      transform-style: preserve-3d;
+      transform: translateZ(13px);
+    }
+    .keyword-cube .face {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border: 1px solid rgba(45, 65, 88, 0.55);
+    }
+    .keyword-cube .top    { transform: translateZ(13px);                      background: #d6e0eb; }
+    .keyword-cube .bottom { transform: translateZ(-13px) rotateX(180deg);     background: #7e8b9b; }
+    .keyword-cube .front  { transform: rotateY(0deg)   translateZ(13px);      background: #abb8c6; }
+    .keyword-cube .back   { transform: rotateY(180deg) translateZ(13px);      background: #8b97a7; }
+    .keyword-cube .left   { transform: rotateY(-90deg) translateZ(13px);      background: #97a3b3; }
+    .keyword-cube .right  { transform: rotateY(90deg)  translateZ(13px);      background: #becad8; }
+
+    .keyword-cube.dark .top    { background: #4f5b69; }
+    .keyword-cube.dark .front  { background: #38424e; }
+    .keyword-cube.dark .right  { background: #5a6675; }
+    .keyword-cube.dark .left   { background: #424e5b; }
+    .keyword-cube.dark .back   { background: #303a44; }
+
+    .keyword-cube.accent .top    { background: #cfe0ee; }
+    .keyword-cube.accent .front  { background: #aac0d5; }
+    .keyword-cube.accent .right  { background: #dceaf4; }
+    .keyword-cube.accent .left   { background: #9eb6cd; }
+
+    /* VTOL drone (CSS isometric) — sits ABOVE the top layer */
+    .keyword-vtol {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 200px;
+      height: 90px;
+      margin-left: -100px;
+      margin-top: -45px;
+      transform-style: preserve-3d;
+      transform: translateZ(220px);
+    }
+
+    .keyword-vtol .vtol-fuselage {
+      position: absolute;
+      left: 70px;
+      top: 36px;
+      width: 70px;
+      height: 18px;
+      background: linear-gradient(180deg, #f4f7fa 0%, #c8d4e0 100%);
+      border: 1px solid #3b4a5a;
+      border-radius: 9px / 9px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+    }
+
+    .keyword-vtol .vtol-nose {
+      position: absolute;
+      left: 134px;
+      top: 38px;
+      width: 16px;
+      height: 14px;
+      background: linear-gradient(180deg, #e5ecf3, #aab8c6);
+      border: 1px solid #3b4a5a;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .keyword-vtol .vtol-tail {
+      position: absolute;
+      left: 58px;
+      top: 28px;
+      width: 14px;
+      height: 14px;
+      background: #c8d4e0;
+      border: 1px solid #3b4a5a;
+      transform: skewX(20deg);
+    }
+
+    .keyword-vtol .vtol-wing {
+      position: absolute;
+      left: 64px;
+      top: 18px;
+      width: 80px;
+      height: 54px;
+      background: linear-gradient(180deg, #eef3f8 0%, #b9c6d4 100%);
+      border: 1px solid #3b4a5a;
+      clip-path: polygon(0 38%, 100% 30%, 100% 56%, 0 70%);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.10);
+    }
+
+    .keyword-vtol .vtol-rotor {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border: 1px solid #3b4a5a;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(180,196,212,0.65) 60%, rgba(120,138,158,0.55) 100%);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.18);
+    }
+    .keyword-vtol .vtol-rotor::before,
+    .keyword-vtol .vtol-rotor::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 26px;
+      height: 2px;
+      background: #3b4a5a;
+      transform-origin: 0 50%;
+    }
+    .keyword-vtol .vtol-rotor::before { transform: translate(-13px, -1px) rotate(0deg);   }
+    .keyword-vtol .vtol-rotor::after  { transform: translate(-13px, -1px) rotate(90deg);  }
+
+    .keyword-vtol .r-fl { left: 66px;  top: 8px;  }
+    .keyword-vtol .r-fr { left: 132px; top: 6px;  }
+    .keyword-vtol .r-rl { left: 66px;  top: 60px; }
+    .keyword-vtol .r-rr { left: 132px; top: 58px; }
+
+    /* VTOL altitude line + shadow */
+    .keyword-vtol-shadow {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 140px;
+      height: 14px;
+      margin-left: -70px;
+      margin-top: -7px;
+      transform: translateZ(170px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(40, 60, 82, 0.22) 0%, rgba(40,60,82,0) 70%);
+    }
+
+    .keyword-vtol-beam {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1px;
+      height: 60px;
+      margin-left: 0;
+      margin-top: -30px;
+      transform: translateZ(190px) rotateX(0deg);
+      background: linear-gradient(180deg, rgba(46,67,88,0.0), rgba(46,67,88,0.55));
+    }
+
+    /* Callouts (over isometric, NOT inside transform) */
+    .keyword-callouts {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .keyword-callout {
+      position: absolute;
+      display: inline-flex;
+      flex-direction: column;
+      padding: 8px 10px;
+      min-width: 120px;
+      border: 1px solid #2e4358;
+      background: #ffffff;
+      box-shadow: 0 8px 16px rgba(26,37,49,0.18);
+    }
+    .keyword-callout::before {
+      content: "";
+      position: absolute;
+      left: -42px; top: 50%;
+      width: 42px; height: 1px;
+      background: #2e4358;
+    }
+    .keyword-callout::after {
+      content: "";
+      position: absolute;
+      left: -46px; top: calc(50% - 3px);
+      width: 6px; height: 6px;
+      border: 1px solid #2e4358;
+      background: #ffffff;
+    }
+    .keyword-callout.right-side::before { left: auto; right: -42px; }
+    .keyword-callout.right-side::after  { left: auto; right: -46px; }
+
+    .keyword-callout .kc-id {
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      color: #5b6e82;
+    }
+    .keyword-callout .kc-ja {
+      margin-top: 2px; font-size: 13px; font-weight: 800;
+      letter-spacing: 0.04em; color: #111c27; line-height: 1.4;
+    }
+    .keyword-callout .kc-en {
+      margin-top: 2px; font-family: "Source Sans 3", sans-serif;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.16em;
+      color: #5b6e82; text-transform: uppercase; line-height: 1.4;
+    }
+
+    /* Callout positions */
+    .kc-pos-1 { top: 16px;  right: 8px; }
+    .kc-pos-2 { top: 92px;  right: 8px; }
+    .kc-pos-3 { top: 168px; right: 8px; }
+    .kc-pos-4 { top: 252px; left: 8px;  }
+    .kc-pos-5 { top: 328px; left: 8px;  }
+    .kc-pos-6 { top: 404px; right: 8px; }
+
+    .keyword-base-label {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 4px;
+      text-align: center;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.28em;
+      color: rgba(46, 67, 88, 0.55);
+      text-transform: uppercase;
+      transform: skew(-18deg, 0deg);
+    }
+
+    @media (max-width: 380px) {
+      .keyword-iso { height: 420px; }
+      .keyword-layer { width: 210px; height: 148px; margin-left: -105px; margin-top: -74px; }
+      .keyword-layer .wall-front { width: 210px; }
+      .keyword-layer .wall-right { height: 148px; }
+      .keyword-vtol { width: 180px; height: 80px; margin-left: -90px; margin-top: -40px; }
+      .keyword-callout { min-width: 100px; padding: 6px 8px; }
+      .keyword-callout .kc-ja { font-size: 12px; }
+      .kc-pos-1 { top: 12px; right: 4px; }
+      .kc-pos-2 { top: 82px; right: 4px; }
+      .kc-pos-3 { top: 152px; right: 4px; }
+      .kc-pos-4 { top: 228px; left: 4px; }
+      .kc-pos-5 { top: 298px; left: 4px; }
+      .kc-pos-6 { top: 368px; right: 4px; }
+      .keyword-callout::before,
+      .keyword-callout.right-side::before { width: 24px; }
+      .keyword-callout::before { left: -24px; }
+      .keyword-callout.right-side::before { right: -24px; }
+      .keyword-callout::after { left: -28px; }
+      .keyword-callout.right-side::after { right: -28px; left: auto; }
+    }
+
+    /* Section spacer to prevent overlap with following section */
+    #about .keyword-box {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 8px;
+    }
+
+    .member-box {
+      padding: 16px;
+    }
+
+    .member-name .member-en {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--ink-soft);
+      letter-spacing: 0.08em;
+      font-family: "Source Sans 3", sans-serif;
+    }
+
+    .source-note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat {
+      padding: 16px 10px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      color: #000;
+    }
+
+    .stat span {
+      display: block;
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .news-item {
+      overflow: hidden;
+    }
+
+    .news-item a {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .news-date {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #eff4f8 0%, #e6edf4 100%);
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-deep);
+    }
+
+    .news-body {
+      padding: 14px;
+    }
+
+    .partner-scroll {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(172px, 172px);
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 2px 2px 12px;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .partner-scroll::-webkit-scrollbar { height: 8px; }
+    .partner-scroll::-webkit-scrollbar-track { background: #e7edf3; }
+    .partner-scroll::-webkit-scrollbar-thumb { background: #a5b4c3; }
+
+    .partner-card {
+      scroll-snap-align: start;
+      color: inherit;
+      text-decoration: none;
+      min-height: 188px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .partner-visual {
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .partner-visual img {
+      max-width: 100%;
+      max-height: 56px;
+      object-fit: contain;
+      filter: saturate(0.80) contrast(1.03);
+    }
+
+    .partner-card-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .partner-card h3 {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .partner-card p {
+      font-size: 11px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      word-break: break-all;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: min(100%, var(--max));
+      z-index: 50;
+      border-top: 1px solid var(--line-strong);
+      background: rgba(247, 249, 251, 0.98);
+      backdrop-filter: blur(10px);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .bottom-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .bottom-nav a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 8px 4px;
+      text-align: center;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.35;
+      border-left: 1px solid rgba(168, 180, 194, 0.45);
+    }
+
+    .bottom-nav li:first-child a { border-left: 0; }
+
+    .footer {
+      padding: 26px 16px 20px;
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .lang-en { display: none; }
+    html[data-lang="en"] .lang-ja { display: none; }
+    html[data-lang="en"] .lang-en { display: inline; }
+    html[data-lang="ja"] .lang-ja { display: inline; }
+    html[data-lang="ja"] .lang-en { display: none; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <strong>Team-AIRSherpa</strong>
+          <span>Mobile Browser Page</span>
+        </div>
+        <div class="lang-toggle" aria-label="Language switcher">
+          <button type="button" class="active" data-set-lang="ja">JP</button>
+          <button type="button" data-set-lang="en">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="subject-bar">
+          <span class="lang-ja">金沢工業大学 工学部航空宇宙工学科</span>
+          <span class="lang-en">Kanazawa Institute of Technology / Department of Aeronautics and Astronautics</span>
+        </div>
+        <h1>
+          <span class="lang-ja">物を運び、命をつなぎ、100年後も続ける</span>
+          <span class="lang-en">Deliver goods, sustain lives, and continue for the next 100 years</span>
+        </h1>
+        <div class="hero-caption">AKASAKA TAKESHI LABORATORY / TEAM-AIRSHERPA</div>
+        <p class="hero-lead">
+          <span class="lang-ja">Team-AIRSherpaは、金沢工業大学 工学部航空宇宙工学科 赤坂剛史研究室発の物流ドローン開発プロジェクトです。</span>
+          <span class="lang-en">Team-AIRSherpa is a logistics drone development project originating from the Akasaka Takeshi Laboratory at Kanazawa Institute of Technology.</span>
+        </p>
+        <p class="hero-text">
+          <span class="lang-ja">物流・災害対応・地域課題の解決を見据え、実運用を志向した機体開発、飛行実験、社会実装、事業化の推進に取り組みます。</span>
+          <span class="lang-en">The project advances aircraft development, flight testing, social implementation, and commercialization for practical use in logistics, disaster response, and regional problem-solving.</span>
+        </p>
+        <div class="summary-card">
+          <div class="summary-card-head">
+            <strong><span class="lang-ja">プロジェクト概要</span><span class="lang-en">Project Outline</span></strong>
+            <span>TEAM-AIRSHERPA</span>
+          </div>
+          <div class="summary-card-body">
+            <span class="lang-ja">赤坂剛史研究室は、実運用を目指した小型無人航空機・ヘリコプタ・eVTOL・パラシュート等の研究開発に取り組んでいます。</span>
+            <span class="lang-en">The laboratory conducts research and development on small unmanned aircraft, helicopters, eVTOL, parachutes, and related systems aimed at practical deployment.</span>
+            <ul>
+              <li><span class="lang-ja">物流ドローンの開発推進</span><span class="lang-en">Promotion of logistics drone development</span></li>
+              <li><span class="lang-ja">実運用を見据えた飛行実験</span><span class="lang-en">Flight tests for practical operation</span></li>
+              <li><span class="lang-ja">社会実装・事業化への展開</span><span class="lang-en">Social implementation and commercialization</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="about" class="section">
+        <div class="section-title">
+          <h2><span class="lang-ja">概要</span><span class="lang-en">About</span></h2>
+          <p>PROJECT OVERVIEW</p>
+        </div>
+        <p class="section-copy">
+          <span class="lang-ja">本プロジェクトは、金沢工業大学 工学部航空宇宙工学科 赤坂剛史研究室を起点として、物流ドローンの研究開発を推進する取り組みです。大型物流ドローンの飛行実験、VTOL型有翼電動ドローンの開発、社会実装に向けた実証と発信を通じ、継続可能な次世代物流インフラの実現を目指します。</span>
+          <span class="lang-en">This project promotes logistics drone research and development originating from the Akasaka Takeshi Laboratory. Through flight testing, VTOL fixed-wing electric drone development, and social implementation efforts, it aims to realize sustainable next-generation logistics infrastructure.</span>
+        </p>
+        <div class="cards">
+          <article class="card">
+            <div class="card-num">01</div>
+            <h3><span class="lang-ja">使命</span><span class="lang-en">Mission</span></h3>
+            <p><span class="lang-ja">物資輸送の高度化と、災害・救助・地域支援への応用を見据えた物流ドローンの実装研究を進めます。</span><span class="lang-en">Advance implementation research on logistics drones for improved transportation, disaster response, rescue, and regional support.</span></p>
+          </article>
+          <article class="card">
+            <div class="card-num">02</div>
+            <h3><span class="lang-ja">背景</span><span class="lang-en">Background</span></h3>
+            <p><span class="lang-ja">赤坂剛史研究室による航空宇宙分野の研究成果を基盤として、実運用につながる開発プロジェクトとして展開しています。</span><span class="lang-en">The project builds on aerospace research outcomes from the Akasaka Laboratory and develops them toward practical deployment.</span></p>
+          </article>
+          <article class="card">
+            <div class="card-num">03</div>
+            <h3><span class="lang-ja">方向性</span><span class="lang-en">Direction</span></h3>
+            <p><span class="lang-ja">研究段階に留まらず、飛行実験・スタートアップ連携・社会実装を含む持続的な展開を重視しています。</span><span class="lang-en">The initiative emphasizes sustainable development beyond laboratory research, including flight tests, startup collaboration, and social implementation.</span></p>
+          </article>
+        </div>
+        <div class="keyword-box">
+          <div class="keyword-box-title"><span class="lang-ja">キーワード構成</span><span class="lang-en">Keyword Composition</span></div>
+          <div class="keyword-box-body">
+            <div class="keyword-iso">
+              <div class="keyword-iso-stage">
+
+                <!-- Layer 1: LLM -->
+                <div class="keyword-layer keyword-layer-1">
+                  <div class="plate"></div>
+                  <div class="wall-front"></div>
+                  <div class="wall-right"></div>
+                  <span class="layer-tag">LLM LAYER</span>
+                </div>
+
+                <!-- Layer 2: DATA -->
+                <div class="keyword-layer keyword-layer-2">
+                  <div class="plate"></div>
+                  <div class="wall-front"></div>
+                  <div class="wall-right"></div>
+                  <span class="layer-tag">DATA LAYER</span>
+                  <div class="keyword-cube" style="left:36px; top:36px;">
+                    <div class="face top"></div><div class="face front"></div><div class="face right"></div>
+                  </div>
+                  <div class="keyword-cube accent" style="left:120px; top:80px;">
+                    <div class="face top"></div><div class="face front"></div><div class="face right"></div>
+                  </div>
+                </div>
+
+                <!-- Layer 3: KNOWLEDGE -->
+                <div class="keyword-layer keyword-layer-3">
+                  <div class="plate"></div>
+                  <div class="wall-front"></div>
+                  <div class="wall-right"></div>
+                  <span class="layer-tag">KNOWLEDGE LAYER</span>
+                  <div class="keyword-cube dark" style="left:78px; top:48px;">
+                    <div class="face top"></div><div class="face front"></div><div class="face right"></div>
+                  </div>
+                  <div class="keyword-cube" style="left:160px; top:90px;">
+                    <div class="face top"></div><div class="face front"></div><div class="face right"></div>
+                  </div>
+                </div>
+
+                <!-- Layer 4: AGENT -->
+                <div class="keyword-layer keyword-layer-4">
+                  <div class="plate"></div>
+                  <div class="wall-front"></div>
+                  <div class="wall-right"></div>
+                  <span class="layer-tag">AGENT LAYER</span>
+                  <div class="keyword-cube accent" style="left:46px; top:80px;">
+                    <div class="face top"></div><div class="face front"></div><div class="face right"></div>
+                  </div>
+                  <div class="keyword-cube dark" style="left:140px; top:36px;">
+                    <div class="face top"></div><div class="face front"></div><div class="face right"></div>
+                  </div>
+                </div>
+
+                <!-- Layer 5: APPLICATION -->
+                <div class="keyword-layer keyword-layer-5">
+                  <div class="plate"></div>
+                  <div class="wall-front"></div>
+                  <div class="wall-right"></div>
+                  <span class="layer-tag">APPLICATION LAYER</span>
+                </div>
+
+                <!-- VTOL Shadow + Beam + Drone (above all layers) -->
+                <div class="keyword-vtol-shadow"></div>
+                <div class="keyword-vtol-beam"></div>
+
+                <div class="keyword-vtol">
+                  <div class="vtol-tail"></div>
+                  <div class="vtol-wing"></div>
+                  <div class="vtol-fuselage"></div>
+                  <div class="vtol-nose"></div>
+                  <div class="vtol-rotor r-fl"></div>
+                  <div class="vtol-rotor r-fr"></div>
+                  <div class="vtol-rotor r-rl"></div>
+                  <div class="vtol-rotor r-rr"></div>
+                </div>
+              </div>
+
+              <div class="keyword-base-label">LLM / GPT / CLAUDE / GEMINI</div>
+
+              <div class="keyword-callouts">
+                <div class="keyword-callout right-side kc-pos-1">
+                  <span class="kc-id">KW.00</span>
+                  <span class="kc-ja">VTOL型ドローン</span>
+                  <span class="kc-en">VTOL Fixed-Wing Drone</span>
+                </div>
+                <div class="keyword-callout right-side kc-pos-2">
+                  <span class="kc-id">KW.01</span>
+                  <span class="kc-ja">物流ドローン</span>
+                  <span class="kc-en">Logistics Drone</span>
+                </div>
+                <div class="keyword-callout right-side kc-pos-3">
+                  <span class="kc-id">KW.02</span>
+                  <span class="kc-ja">eVTOL</span>
+                  <span class="kc-en">Electric VTOL</span>
+                </div>
+                <div class="keyword-callout kc-pos-4">
+                  <span class="kc-id">KW.03</span>
+                  <span class="kc-ja">自律飛行</span>
+                  <span class="kc-en">Autonomous Flight</span>
+                </div>
+                <div class="keyword-callout kc-pos-5">
+                  <span class="kc-id">KW.04</span>
+                  <span class="kc-ja">災害対応</span>
+                  <span class="kc-en">Disaster Response</span>
+                </div>
+                <div class="keyword-callout right-side kc-pos-6">
+                  <span class="kc-id">KW.05</span>
+                  <span class="kc-ja">社会実装</span>
+                  <span class="kc-en">Social Implementation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section">
+        <div class="section-title">
+          <h2><span class="lang-ja">事業内容</span><span class="lang-en">Project</span></h2>
+          <p>PROJECT STRUCTURE</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <h3><span class="lang-ja">基本情報</span><span class="lang-en">Core Information</span></h3>
+            <ul>
+              <li><span class="lang-ja">金沢工業大学 工学部航空宇宙工学科</span><span class="lang-en">Kanazawa Institute of Technology, Department of Aeronautics and Astronautics</span></li>
+              <li><span class="lang-ja">赤坂剛史 研究室発</span><span class="lang-en">Originated from Akasaka Takeshi Laboratory</span></li>
+              <li><span class="lang-ja">物流ドローン開発プロジェクトの推進</span><span class="lang-en">Promotion of a logistics drone development project</span></li>
+              <li><span class="lang-ja">実運用・社会実装を見据えた研究開発</span><span class="lang-en">R&D oriented toward real operation and social implementation</span></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3><span class="lang-ja">研究領域との接続</span><span class="lang-en">Connection to Research Fields</span></h3>
+            <ul>
+              <li><span class="lang-ja">小型無人航空機（ドローン）の研究開発</span><span class="lang-en">Research and development of small unmanned aircraft</span></li>
+              <li><span class="lang-ja">VTOL型有翼電動ドローンの飛行実験</span><span class="lang-en">Flight testing of VTOL fixed-wing electric drones</span></li>
+              <li><span class="lang-ja">自律飛行・飛行特性に関する検討</span><span class="lang-en">Studies on autonomous flight and flight characteristics</span></li>
+              <li><span class="lang-ja">事業化を見据えた外部連携・発信</span><span class="lang-en">External collaboration and communication toward commercialization</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="members" class="section">
+        <div class="section-title">
+          <h2><span class="lang-ja">体制</span><span class="lang-en">Team</span></h2>
+          <p>TEAM DIRECTORY</p>
+        </div>
+        <div class="cards">
+          <article class="member-box">
+            <div class="role-badge"><span class="lang-ja">プロジェクト責任者</span><span class="lang-en">Project Lead</span></div>
+            <div class="member-name">赤坂剛史<span class="member-en">AKASAKA TAKESHI</span></div>
+            <p><span class="lang-ja">実運用を目指した小型無人航空機・ヘリコプタ・eVTOL・パラシュート等の研究開発を掲げ、小型無人航空機の屋外運用、自律飛行、緊急用パラシュート、コンパウンドヘリコプタ、空飛ぶクルマ、高空風力発電などの研究開発を推進。</span><span class="lang-en">Leads research and development on small unmanned aircraft, helicopters, eVTOL, parachutes, compound helicopters, flying cars, and airborne wind power for practical deployment.</span></p>
+            <div class="source-note"><span class="lang-ja">出典：</span><span class="lang-en">Source: </span><a href="https://share.google/xNN99SGEDAjxiTuRL" target="_blank" rel="noopener noreferrer">研究室ガイド</a></div>
+          </article>
+          <article class="member-box">
+            <div class="role-badge"><span class="lang-ja">事業化推進機関責任者</span><span class="lang-en">Commercialization Promotion Lead</span></div>
+            <div class="member-name">塩見健太<span class="member-en">SHIOMI KENTA</span></div>
+            <p><span class="lang-ja">総合商社の自動車部門にて投資先である海外販売会社の経営支援や海外生産工場の立ち上げ支援、新型モデルの導入検討、M&amp;A買収先の企業評価業務に従事。2024年2月にQBキャピタル入社。</span><span class="lang-en">Worked in the automotive division of a general trading company, supporting overseas affiliates, plant launches, new model introduction studies, and M&amp;A valuation work. Joined QB Capital in February 2024.</span></p>
+            <div class="source-note"><a href="https://qbc.co.jp/" target="_blank" rel="noopener noreferrer">QB Capital</a></div>
+          </article>
+          <article class="member-box">
+            <div class="role-badge"><span class="lang-ja">事業開発・戦略構築コーディネーター</span><span class="lang-en">Business Development & Strategy Coordinator</span></div>
+            <div class="member-name">矢口誠也<span class="member-en">YAGUCHI SEIYA</span></div>
+            <p><span class="lang-ja">2018年 株式会社Luupに参画し、事業推進、戦略、fleetmanagementの立ち上げなどを経験し、事業構築から戦略に携わる。</span><span class="lang-en">Joined Luup in 2018 and gained experience in business promotion, strategy, and the launch of fleet management, engaging in both business building and strategic planning.</span></p>
+            <div class="source-note"><span class="lang-ja">出典：ユーザー提供情報</span><span class="lang-en">Source: User-provided</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="achievements" class="section">
+        <div class="section-title">
+          <h2><span class="lang-ja">実績</span><span class="lang-en">Achievements</span></h2>
+          <p>VERIFIED OUTPUTS</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>6</strong><span><span class="lang-ja">確認できた公式関連ニュース件数</span><span class="lang-en">Verified official related news items</span></span></div>
+          <div class="stat"><strong>50kg</strong><span><span class="lang-ja">積載に言及された機体規模</span><span class="lang-en">Payload scale mentioned in headlines</span></span></div>
+          <div class="stat"><strong>50km+</strong><span><span class="lang-ja">飛行可能距離として言及</span><span class="lang-en">Flight distance mentioned in headlines</span></span></div>
+          <div class="stat"><strong>2025–2026</strong><span><span class="lang-ja">確認できた公開記事の期間</span><span class="lang-en">Publication period of verified articles</span></span></div>
+        </div>
+        <p class="section-copy" style="margin-top:12px;"><span class="lang-ja">※「50kg」「50km超」は金沢工業大学の公式ニュース見出しに記載された表現です。</span><span class="lang-en">* “50kg” and “50km+” are expressions stated in official KIT news headlines.</span></p>
+      </section>
+
+      <section id="news" class="section">
+        <div class="section-title">
+          <h2><span class="lang-ja">ニュース</span><span class="lang-en">News</span></h2>
+          <p>OFFICIAL NEWS LINKS</p>
+        </div>
+        <div class="news-list">
+          <article class="news-item">
+            <a href="https://www.kanazawa-it.ac.jp/kitnews/2026/0313_akasaka.html" target="_blank" rel="noopener noreferrer">
+              <div class="news-date">2026.03.13</div>
+              <div class="news-body">
+                <h3><span class="lang-ja">50kg積載・50km超飛行可能なVTOL型有翼電動ドローンの飛行実験</span><span class="lang-en">Flight test of a VTOL fixed-wing electric drone carrying 50kg and flying over 50km</span></h3>
+                <p><span class="lang-ja">福井空港で実施された大型物流ドローンの飛行実験に関する公式ニュース。</span><span class="lang-en">Official news on a large logistics drone flight demonstration at Fukui Airport.</span></p>
+              </div>
+            </a>
+          </article>
+          <article class="news-item">
+            <a href="https://www.kanazawa-it.ac.jp/kitnews/2025/1023_akasaka.html" target="_blank" rel="noopener noreferrer">
+              <div class="news-date">2025.10.23</div>
+              <div class="news-body">
+                <h3><span class="lang-ja">事業化へ前進。「Kawasaki Startup Gate」「Sakai Startup Challenge」に採択</span><span class="lang-en">Progress toward commercialization through selection in startup programs</span></h3>
+                <p><span class="lang-ja">物流ドローンの事業化推進に関する公式ニュース。</span><span class="lang-en">Official news on progress toward commercialization.</span></p>
+              </div>
+            </a>
+          </article>
+          <article class="news-item">
+            <a href="https://www.kanazawa-it.ac.jp/kitnews/2026/0501_SusHi_Tech_TOKYO_2026.html" target="_blank" rel="noopener noreferrer">
+              <div class="news-date">2026.05.01</div>
+              <div class="news-body">
+                <h3><span class="lang-ja">SusHi Tech TOKYO 2026で大型物流ドローン事業化に向けプレゼン</span><span class="lang-en">Presentation on large logistics drone commercialization at SusHi Tech TOKYO 2026</span></h3>
+                <p><span class="lang-ja">社会実装・事業化フェーズへの展開を示す公式ニュース。</span><span class="lang-en">Official news showing progress toward implementation.</span></p>
+              </div>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section id="partners" class="section">
+        <div class="section-title">
+          <h2><span class="lang-ja">パートナー</span><span class="lang-en">Partners</span></h2>
+          <p>HORIZONTAL LOGO LIST</p>
+        </div>
+        <p class="section-copy">
+          <span class="lang-ja">スマートフォン閲覧向けに、ロゴ一覧を横スクロール形式で整理しています。各カードをタップすると各団体のURLへ移動します。</span>
+          <span class="lang-en">For smartphone browsing, the partner logos are arranged in a horizontal scroll list. Tapping each card opens the corresponding URL.</span>
+        </p>
+        <div class="partner-scroll">
+          <a class="partner-card" href="https://www.kanazawa-it.ac.jp/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://www.kanazawa-it.ac.jp/assets/img/common/logo.png" alt="金沢工業大学 ロゴ"></div><div class="partner-card-body"><h3>金沢工業大学</h3><p>https://www.kanazawa-it.ac.jp/</p></div></a>
+          <a class="partner-card" href="https://drone-campus.jp/corporate/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://sspark.genspark.ai/cfimages?u1=rR%2FCGqla%2Btl0%2BHOs%2BxWfISIfrAz6hDODN9Ch05y3uRhDkHAbcOiDPcc7ZdE2VqOSB9clCFneh9MUeRHi7xfdoaHe0qo%3D&u2=WhqztMAWi4BjESfE&width=2560" alt="むげんのそら株式会社 ロゴ・公式サイト由来ビジュアル"></div><div class="partner-card-body"><h3>むげんのそら株式会社</h3><p>https://drone-campus.jp/corporate/</p></div></a>
+          <a class="partner-card" href="https://uas-japan.org/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://sspark.genspark.ai/cfimages?u1=G014WeTaosqy4N0NG6dg%2B7QBBLX9U8N4p3iKPFKzwn4XHvbH8ChG2EdIhCa1%2BoW8G1m2cPvmtn8axrXSys%2FqQQWWIE2WuU%2BqK%2Fx%2BHWiE2VckSvZBCNDLHHAw1rwbHis3xqy%2FR%2BFFCFXP1ZNDx%2B%2FpCg%3D%3D&u2=RlhAQA0ef3AiSrm5&width=2560" alt="JUIDA ロゴ・公式サイト由来ビジュアル"></div><div class="partner-card-body"><h3>JUIDA</h3><p>https://uas-japan.org/</p></div></a>
+          <a class="partner-card" href="https://qbc.co.jp/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://qbc.co.jp/wp-content/themes/qb_web2/assets/img/logo.png" alt="QBキャピタル合同会社 ロゴ"></div><div class="partner-card-body"><h3>QBキャピタル合同会社</h3><p>https://qbc.co.jp/</p></div></a>
+          <a class="partner-card" href="https://regacy-innovation.com/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://regacy-innovation.com/wp-content/themes/regacy-innovation-v1-1-7/common/img/img-home-main-logo.svg" alt="ReGACY Innovation Group株式会社 ロゴ"></div><div class="partner-card-body"><h3>ReGACY Innovation Group株式会社</h3><p>https://regacy-innovation.com/</p></div></a>
+          <a class="partner-card" href="https://www.pref.ishikawa.lg.jp/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://sspark.genspark.ai/cfimages?u1=uM0ZIsKXIoS%2FDXjcMoA6rnODo1C%2FsqMj%2BlH74DToj2%2B32iI2BduZt2mCnozpp15CM3bm%2BkQV2t%2FtRSU0nf%2F2Bvf81NDdRjyW1KI880KFiCigm%2FZS92ct8wgosRA%3D&u2=vfIjzn0UNA6yP7%2Bf&width=2560" alt="石川県 ロゴ・公式サイト由来ビジュアル"></div><div class="partner-card-body"><h3>石川県</h3><p>https://www.pref.ishikawa.lg.jp/</p></div></a>
+          <a class="partner-card" href="https://www.city.kawasaki.jp/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://sspark.genspark.ai/cfimages?u1=XX%2Fs6C%2FcoDSCZ6m%2BEema%2Bov93q3pMZeEF6czYmP0MoBYXkvFrZgh1H4gNS1XE6kvFcn6KVilzG5qR5Jyo1X555asKTRlSwelgZLc3t9pue6AWeuPQELja6gUOkRPa%2BZvXzV4mqwg6R%2FwNQ%3D%3D&u2=MRPyzlJ%2FhEHTxU%2B2&width=2560" alt="川崎市 ロゴ・公式サイト由来ビジュアル"></div><div class="partner-card-body"><h3>川崎市</h3><p>https://www.city.kawasaki.jp/</p></div></a>
+          <a class="partner-card" href="https://tech-startup-hokuriku.jp/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://tech-startup-hokuriku.jp/assets/img/logo.svg" alt="Tech Startup HOKURIKU ロゴ"></div><div class="partner-card-body"><h3>Tech Startup HOKURIKU</h3><p>https://tech-startup-hokuriku.jp/</p></div></a>
+          <a class="partner-card" href="https://www.nedo.go.jp/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://sspark.genspark.ai/cfimages?u1=IrmcrbExLpnWQQYAHssnkJ2Cd2As2oYGgnyvtqtC32%2Fz844Z8YIkVM5GgBdRhJdGedd5EnrpMzlG7Mac&u2=mS4DNgLFr3%2F9VArR&width=2560" alt="NEDO ロゴ"></div><div class="partner-card-body"><h3>NEDO</h3><p>https://www.nedo.go.jp/</p></div></a>
+          <a class="partner-card" href="https://sushitech-startup.metro.tokyo.lg.jp/" target="_blank" rel="noopener noreferrer"><div class="partner-visual"><img src="https://sspark.genspark.ai/cfimages?u1=XbP9O3KEsOeV6P7nNjVdYghiF0%2BudZLlZHPC9vQ3pIoF9N%2BNfP88ANb%2FxpFrdSKRyhmg7J9THrq7qhWrcP3puyXOW54y346Hq4hr%2FNSXpVqZvH49hLPSH2dSUvoTvBfSKLjOw91F0F1hvJnLJoSutJBpWeNVRoZelFPCoiUL%2FQ%3D%3D&u2=UPWHw%2Fjp0sOPpIc7&width=2560" alt="SusHi Tech TOKYO 2026 ロゴ・公式サイト由来ビジュアル"></div><div class="partner-card-body"><h3>SusHi Tech TOKYO 2026</h3><p>https://sushitech-startup.metro.tokyo.lg.jp/</p></div></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>© Team-AIRSherpa</div>
+      <div>
+        <span class="lang-ja">金沢工業大学 工学部航空宇宙工学科 赤坂剛史研究室発 物流ドローン開発プロジェクト</span>
+        <span class="lang-en">Logistics drone development project originating from Akasaka Takeshi Laboratory, Department of Aeronautics and Astronautics, Kanazawa Institute of Technology</span>
+      </div>
+    </footer>
+
+    <nav class="bottom-nav" aria-label="Section navigation">
+      <ul>
+        <li><a href="#about"><span class="lang-ja">概要</span><span class="lang-en">About</span></a></li>
+        <li><a href="#services"><span class="lang-ja">事業</span><span class="lang-en">Project</span></a></li>
+        <li><a href="#members"><span class="lang-ja">体制</span><span class="lang-en">Team</span></a></li>
+        <li><a href="#news"><span class="lang-ja">ニュース</span><span class="lang-en">News</span></a></li>
+        <li><a href="#partners"><span class="lang-ja">連携先</span><span class="lang-en">Partners</span></a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll('[data-set-lang]');
+      function setLang(lang) {
+        root.setAttribute('data-lang', lang);
+        root.setAttribute('lang', lang === 'en' ? 'en' : 'ja');
+        buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.setLang === lang));
+      }
+      buttons.forEach(btn => btn.addEventListener('click', function () { setLang(this.dataset.setLang); }));
+      setLang('ja');
+    })();
+  </script>
+</body>
+</html>
